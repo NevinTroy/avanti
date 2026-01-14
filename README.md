@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Avanti Landscaping clone
 
-## Getting Started
+Full-site Next.js (App Router) clone of [avantilandscaping.ca](https://avantilandscaping.ca/) with a “Get a free quote” form that stores submissions in Postgres and redirects to a thank-you page.
 
-First, run the development server:
+## Requirements
+- Node 18+
+- Supabase project (for Postgres + API)
 
+## Setup
 ```bash
+cd avanti-site
+npm install
+cp env .env.local   # then fill in Supabase credentials
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Supabase env
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY` (server-side; keep it secret)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Set these in `.env.local`, restart `npm run dev`, and ensure the `quotes` table exists:
+```sql
+CREATE TABLE quotes (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  email TEXT NOT NULL,
+  address TEXT NOT NULL,
+  message TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+If Row Level Security is enabled, grant insert to the service role or disable RLS on `quotes`.
 
-## Learn More
+## Scripts
+- `npm run dev` — start dev server
+- `npm run build` — production build
+- `npm run start` — start production server
+- `npm run lint` — run ESLint
 
-To learn more about Next.js, take a look at the following resources:
+## Quote form flow
+1. Users submit name, phone, email, address, and message.
+2. `POST /api/quote` validates input (zod), ensures the `quotes` table exists, and inserts the record via `pg`.
+3. On success, the client redirects to `/thank-you`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Content & pages
+Pages mirror the source site structure: home, services (landscaping, stonework, woodwork, swimming pools, other services), gallery, about us, blog (stub), contacts, get-a-quote, sitemap, privacy policy, thank-you. Text aligns with the reference site for easy review.
