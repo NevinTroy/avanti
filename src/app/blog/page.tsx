@@ -18,25 +18,45 @@ const posts = [
 export default function BlogPage() {
   return (
     <div className="space-y-10 pb-16">
-      <section className="bg-emerald-900 text-white">
-        <div className="section flex flex-col gap-4 py-12 md:flex-row md:items-end md:justify-between">
-          <div className="space-y-2">
-            <p className="text-xs uppercase tracking-[0.25em] text-emerald-200">
-              Blog
+      <section className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-700 text-white">
+        <div className="section py-14">
+          <div className="space-y-6">
+            <p className="text-xs uppercase tracking-[0.25em] text-emerald-100">
+              Blog & Insights
             </p>
-            <h1 className="text-4xl font-semibold leading-tight">
+            <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">
               Insights from Avanti Landscaping
             </h1>
             <p className="text-lg text-emerald-100">
               Tips on design, materials, and maintenance to get the most from your outdoor spaces.
             </p>
+            <div className="prose prose-invert max-w-none">
+              <p className="text-emerald-50">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              </p>
+              <p className="text-emerald-50">
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/get-a-quote"
+                className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-emerald-800 shadow-sm transition hover:bg-emerald-50"
+              >
+                Get a free quote
+              </Link>
+              <Link
+                href="/contacts"
+                className="rounded-full border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                Contact us
+              </Link>
+            </div>
           </div>
-          <Link
-            href="/get-a-quote"
-            className="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-emerald-800 shadow-sm transition hover:bg-emerald-50"
-          >
-            Get a free quote
-          </Link>
         </div>
       </section>
 
